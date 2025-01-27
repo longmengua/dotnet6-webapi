@@ -1,0 +1,86 @@
+# Build Folders
+bin/
+obj/
+
+# User-Specific Files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Logs
+*.log
+
+# OS-Generated Files
+.DS_Store
+Thumbs.db
+ehthumbs.db
+desktop.ini
+$RECYCLE.BIN/
+
+# IDE Settings
+.vscode/
+.idea/
+.vscode/**/*
+*.code-workspace
+
+# Rider Project Files
+.idea/
+
+# Visual Studio
+.vs/
+*.psess
+
+# Dependencies
+*.nuget/
+packages/
+project.lock.json
+project.fragment.lock.json
+
+# Generated Files
+*.dll
+*.exe
+*.pdb
+*.mdb
+*.app
+*.apk
+*.cmo
+*.cma
+*.cmx
+*.cmi
+*.cache
+*.pyc
+*.pyo
+*.class
+*.war
+*.jar
+
+# Publish Artifacts
+publish/
+publish_output/
+artifacts/
+
+# ASP.NET and Entity Framework
+appsettings.*.json
+appsettings.Development.json
+appsettings.Staging.json
+appsettings.Production.json
+
+# Database Files
+*.mdf
+*.ldf
+
+# Global NuGet Packages
+*.nupkg
+.nuget/
+
+# Temporary Files
+*.tmp
+*.temp
+*.bak
+*.swp
+*.swo
+*.orig
+
+# Testing Results
+TestResults/
