@@ -1,4 +1,3 @@
-/Users/waltor/project/dotnet6-webapi/bin/Debug/net6.0/appsettings.Development.json
 /Users/waltor/project/dotnet6-webapi/bin/Debug/net6.0/appsettings.json
 /Users/waltor/project/dotnet6-webapi/bin/Debug/net6.0/dotnet6-webapi
 /Users/waltor/project/dotnet6-webapi/bin/Debug/net6.0/dotnet6-webapi.deps.json
@@ -25,3 +24,4 @@
 /Users/waltor/project/dotnet6-webapi/obj/Debug/net6.0/dotnet6-webapi.pdb
 /Users/waltor/project/dotnet6-webapi/obj/Debug/net6.0/dotnet6-webapi.genruntimeconfig.cache
 /Users/waltor/project/dotnet6-webapi/obj/Debug/net6.0/ref/dotnet6-webapi.dll
+/Users/waltor/project/dotnet6-webapi/bin/Debug/net6.0/appsettings.Development.json
