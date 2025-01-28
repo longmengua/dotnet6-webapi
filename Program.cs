@@ -11,10 +11,10 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // 配置 Serilog to ELK
-builder.Host.UseSerilog((context, configuration) =>
-{
-    LoggingHelper.ConfigureLogging(context, configuration); // 调用封装的方法
-});
+// builder.Host.UseSerilog((context, configuration) =>
+// {
+//     LoggingHelper.ConfigureLogging(context, configuration); // 调用封装的方法
+// });
 
 var app = builder.Build();
 

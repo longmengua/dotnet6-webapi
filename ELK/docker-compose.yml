@@ -5,6 +5,7 @@ services:
     container_name: elasticsearch
     environment:
       - discovery.type=single-node
+      - xpack.security.enabled=false
       # - ES_JAVA_OPTS="-Xmx1g -Xms1g"  # 根據需要調整內存大小，目前為 1g，Xmx使用的最大內存，Xms初始內存
     ports:
       - "9200:9200"
