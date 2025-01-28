@@ -16,7 +16,16 @@
     - remove IIS of launchSetting, coz it will be run in linux.
 
 - phase 3
-    - change log mechanism
+    - change log mechanism to integrate with ELK
 
 - phase 4
+    - middleware for exception capture- 
+
+- phase 5
+    - graceful shutdown
+
+- phase 6
+    - redis
+
+- phase 7
     - 
