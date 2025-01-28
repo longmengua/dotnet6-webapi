@@ -1,11 +1,11 @@
-version: "3"
+
 services:
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:8.0.0
     container_name: elasticsearch
     environment:
       - discovery.type=single-node
-      - ES_JAVA_OPTS="-Xmx1g -Xms1g"  # 根據需要調整內存大小，目前為 1g，Xmx使用的最大內存，Xms初始內存
+      # - ES_JAVA_OPTS="-Xmx1g -Xms1g"  # 根據需要調整內存大小，目前為 1g，Xmx使用的最大內存，Xms初始內存
     ports:
       - "9200:9200"
     volumes:
@@ -16,14 +16,14 @@ services:
   logstash:
     image: docker.elastic.co/logstash/logstash:8.0.0
     container_name: logstash
-    environment:
-      - LS_JAVA_OPTS="-Xmx1g -Xms1g"  # 調整 Logstash 內存
+    # environment:
+      # - LS_JAVA_OPTS="-Xmx1g -Xms1g"  # 調整 Logstash 內存
     ports:
       - "5044:5044"  # 用於 Filebeat 或其他工具的輸入端口
       - "9600:9600"  # Logstash 監控端口
     volumes:
-      - /path/to/logstash-logs:/usr/share/logstash/data  # 儲存處理過的日誌
-      - /path/to/logstash.conf:/usr/share/logstash/config/logstash.conf  # Logstash 配置文件
+      - logstash_logs:/usr/share/logstash/data  # 儲存處理過的日誌
+      # - logstash.conf:/usr/share/logstash/config/logstash.conf  # Logstash 配置文件
     networks:
       - elk
 

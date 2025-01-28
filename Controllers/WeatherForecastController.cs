@@ -21,6 +21,11 @@ public class WeatherForecastController : ControllerBase
     [HttpGet(Name = "GetWeatherForecast")]
     public IEnumerable<WeatherForecast> Get()
     {
+        // 使用 _logger 寫入日志
+        _logger.LogInformation("This is an informational log message.");
+        _logger.LogWarning("This is a warning log message.");
+        _logger.LogError("This is an error log message with additional context: {ContextValue}", 12345);
+
         return Enumerable.Range(1, 5).Select(index => new WeatherForecast
         {
             Date = DateTime.Now.AddDays(index),
