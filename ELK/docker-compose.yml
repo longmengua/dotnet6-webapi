@@ -10,7 +10,7 @@ services:
     ports:
       - "9200:9200"
     volumes:
-      - elasticsearch_data:/usr/share/elasticsearch/data  # 儲存 Elasticsearch 數據，此為 linux 列的路徑
+      - ~/project/elasticsearch_data:/usr/share/elasticsearch/data  # 映射到 ~/project/elasticsearch_data
     networks:
       - elk
 
@@ -23,8 +23,7 @@ services:
       - "5044:5044"  # 用於 Filebeat 或其他工具的輸入端口
       - "9600:9600"  # Logstash 監控端口
     volumes:
-      - logstash_logs:/usr/share/logstash/data  # 儲存處理過的日誌
-      # - logstash.conf:/usr/share/logstash/config/logstash.conf  # Logstash 配置文件
+      - ~/project/logstash_logs:/usr/share/logstash/data  # 映射到 ~/project/logstash_logs
     networks:
       - elk
 
@@ -37,11 +36,6 @@ services:
       - "5601:5601"  # Kibana 用於瀏覽日誌和查詢的端口
     networks:
       - elk
-
-volumes:
-  elasticsearch_data:  # 用於 Elasticsearch 數據的 Volume
-  logstash_logs:  # 用於 Logstash 日誌數據的 Volume
-    external: false  # 如果需要外部掛載，可以設定為 true，讓它在容器外部保存
 
 networks:
   elk:

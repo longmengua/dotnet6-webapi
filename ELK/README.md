@@ -1,10 +1,13 @@
 # ELK 
 
 - this docker compose is for ELK creation
+- before launch it, you need to create two folder for volumes
+    - ~/project/elasticsearch_data
+    - ~/project/logstash_logs
 - launch command
     - docker-compose up -d
 - access Kibana
-    - curl http://localhost:9200
+    - http://localhost:5601
 
 ## Kibana, Elasticsearch
 
@@ -30,7 +33,7 @@
    -H "Content-Type: application/json" \
    -d '
    {
-     "@timestamp": "2025-01-29T00:07:11.7650130+08:00",
+     "@timestamp": "2025-01-29T01:00:00.0000000+08:00",
      "level": "Information",
      "messageTemplate": "{HostingRequestFinishedLog:l}",
      "message": "Request finished HTTP/1.1 GET https://localhost:7094/WeatherForecast?k=123 - - - 200 - application/json;+charset=utf-8 2.0632ms",
@@ -67,3 +70,4 @@
      }
    }
    '
+   ```
