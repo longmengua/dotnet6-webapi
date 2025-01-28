@@ -1,4 +1,4 @@
-namespace dotnet6_webapi;
+namespace dotnet6_webapi.Models;
 
 public class WeatherForecast
 {

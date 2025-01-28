@@ -1,5 +1,5 @@
 using Serilog;
-using dotnet6_webapi.Util;
+using dotnet6_webapi.Utils;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,10 +11,10 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // 配置 Serilog to ELK
-// builder.Host.UseSerilog((context, configuration) =>
-// {
-//     LoggingHelper.ConfigureLogging(context, configuration); // 调用封装的方法
-// });
+builder.Host.UseSerilog((context, configuration) =>
+{
+    LoggingHelper.ConfigureLogging(context, configuration); // 調用封裝方法
+});
 
 var app = builder.Build();
 
