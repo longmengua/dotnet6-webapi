@@ -16,4 +16,7 @@
     - remove IIS of launchSetting, coz it will be run in linux.
 
 - phase 3
+    - change log mechanism
+
+- phase 4
     - 
