@@ -1,5 +1,6 @@
 using Serilog;
 using dotnet6_webapi.Utils;
+using dotnet6_webapi.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,6 +35,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger(); // 啟用 Swagger
     app.UseSwaggerUI(); // 啟用 Swagger UI
 }
+
+// 使用自定義的 Exception Handling 中間件
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 // 啟用 HTTPS 重定向
 app.UseHttpsRedirection();

@@ -19,7 +19,7 @@
     - change log mechanism to integrate with ELK
 
 - phase 4
-    - middleware for exception capture- 
+    - middleware for exception capture 
 
 - phase 5
     - graceful shutdown
