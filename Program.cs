@@ -28,7 +28,7 @@ builder.Host.UseSerilog((context, configuration) =>
 
 var app = builder.Build();
 
-// 開發環境
+// 開發環境配置
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger(); // 啟用 Swagger
