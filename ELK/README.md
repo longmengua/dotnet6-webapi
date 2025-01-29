@@ -1,13 +1,21 @@
 # ELK 
 
+## Summary
+
 - this docker compose is for ELK creation
+
 - before launch it, you need to create two folder for volumes
     - ~/project/elasticsearch_data
-    - ~/project/logstash_logs
+
 - launch command
     - docker-compose up -d
+
 - access Kibana
     - http://localhost:5601
+
+## Take out logstash
+
+- Coz in dotnet, there is a serilog can do what logstash do, therefore no need logstash.
 
 ## Kibana, Elasticsearch
 

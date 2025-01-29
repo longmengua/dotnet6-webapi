@@ -14,19 +14,6 @@ services:
     networks:
       - elk
 
-  logstash:
-    image: docker.elastic.co/logstash/logstash:8.0.0
-    container_name: logstash
-    # environment:
-      # - LS_JAVA_OPTS="-Xmx1g -Xms1g"  # 調整 Logstash 內存
-    ports:
-      - "5044:5044"  # 用於 Filebeat 或其他工具的輸入端口
-      - "9600:9600"  # Logstash 監控端口
-    volumes:
-      - ~/project/logstash_logs:/usr/share/logstash/data  # 映射到 ~/project/logstash_logs
-    networks:
-      - elk
-
   kibana:
     image: docker.elastic.co/kibana/kibana:8.0.0
     container_name: kibana
