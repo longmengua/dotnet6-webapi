@@ -6,7 +6,7 @@
     - backend skills => java, golang, c, node
     - frontend skills => react, vue
 
-## todo
+## phases
 
 - phase 1
     - create a project with the command
@@ -23,6 +23,9 @@
 
 - phase 5
     - graceful shutdown
+        - test
+            - Use the command `dotnet run` to launch the app.
+            - Then use `Ctrl + C` to stop the app and check if the graceful shutdown is triggered.
 
 - phase 6
     - redis

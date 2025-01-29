@@ -1,6 +1,7 @@
 using Serilog;
 using dotnet6_webapi.Utils;
 using dotnet6_webapi.Middlewares;
+using Microsoft.Extensions.Hosting;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,13 +22,33 @@ builder.Services.AddCors(options =>
     });
 });
 
-// 配置 Serilog 設定 ELK
+// 配置 Serilog 記錄到 ELK
 builder.Host.UseSerilog((context, configuration) =>
 {
     LoggingHelper.ConfigureLogging(context, configuration); // 調用封裝方法來設定日誌
 });
 
 var app = builder.Build();
+
+// 配置優雅關閉
+var lifetime = app.Services.GetRequiredService<IHostApplicationLifetime>();
+var logger = app.Services.GetRequiredService<ILogger<Program>>();
+
+lifetime.ApplicationStarted.Register(() =>
+{
+    logger.LogInformation("應用程式已啟動。");
+});
+
+lifetime.ApplicationStopping.Register(() =>
+{
+    logger.LogInformation("應用程式正在關閉...");
+    // 在此可加入關閉資源的邏輯，例如關閉資料庫連線、停止背景任務等
+});
+
+lifetime.ApplicationStopped.Register(() =>
+{
+    logger.LogInformation("應用程式已停止。");
+});
 
 // 開發環境配置
 if (app.Environment.IsDevelopment())
@@ -36,7 +57,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI(); // 啟用 Swagger UI
 }
 
-// 使用自定義的 Exception Handling 中間件
+// 使用自定義的異常處理中間件
 app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 // 啟用 HTTPS 重定向
