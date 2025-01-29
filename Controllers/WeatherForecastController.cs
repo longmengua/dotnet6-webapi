@@ -22,7 +22,7 @@ public class WeatherForecastController : ControllerBase
     [HttpGet(Name = "GetWeatherForecast")]
     public async Task<IEnumerable<WeatherForecast>> Get()
     {
-        await Task.Delay(5000); // 5秒
+        await Task.Delay(15000); // 15秒，如果用 System.Threading.Thread.Sleep，不會觸發。
         return Enumerable.Range(1, 5).Select(index => new WeatherForecast
         {
             Date = DateTime.Now.AddDays(index),
