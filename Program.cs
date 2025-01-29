@@ -1,7 +1,6 @@
 using Serilog;
 using dotnet6_webapi.Utils;
 using dotnet6_webapi.Middlewares;
-using Microsoft.Extensions.Hosting;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -43,10 +42,10 @@ lifetime.ApplicationStopping.Register(() =>
 {
     // 在此可加入關閉資源的邏輯，例如關閉資料庫連線、停止背景任務等
     logger.LogInformation("應用程式正在關閉...");
-    // 模擬等待30秒，給目前的請求更多時間完成
-    // 也可以用 docker run --stop-timeout=30s <your_image> 達到同樣效果
-    System.Threading.Thread.Sleep(30000);
-    logger.LogInformation("已等待30秒，應用程式關閉完成。");
+    // 模擬等待5秒，給目前的請求更多時間完成
+    // 也可以用 docker run --stop-timeout=5s <your_image> 達到同樣效果
+    System.Threading.Thread.Sleep(5000);
+    logger.LogInformation("已等待5秒，應用程式關閉完成。");
 });
 
 lifetime.ApplicationStopped.Register(() =>
@@ -63,6 +62,9 @@ if (app.Environment.IsDevelopment())
 
 // 使用自定義的異常處理中間件
 app.UseMiddleware<ExceptionHandlingMiddleware>();
+
+// 使用自定義的請求超時中間件，10秒API就timeout
+app.UseMiddleware<TimeoutMiddleware>(TimeSpan.FromSeconds(10));
 
 // 啟用 HTTPS 重定向
 app.UseHttpsRedirection();
