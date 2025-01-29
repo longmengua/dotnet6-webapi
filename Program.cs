@@ -41,8 +41,12 @@ lifetime.ApplicationStarted.Register(() =>
 
 lifetime.ApplicationStopping.Register(() =>
 {
-    logger.LogInformation("應用程式正在關閉...");
     // 在此可加入關閉資源的邏輯，例如關閉資料庫連線、停止背景任務等
+    logger.LogInformation("應用程式正在關閉...");
+    // 模擬等待30秒，給目前的請求更多時間完成
+    // 也可以用 docker run --stop-timeout=30s <your_image> 達到同樣效果
+    System.Threading.Thread.Sleep(30000);
+    logger.LogInformation("已等待30秒，應用程式關閉完成。");
 });
 
 lifetime.ApplicationStopped.Register(() =>
