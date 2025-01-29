@@ -28,7 +28,8 @@
             - Then use `Ctrl + C` to stop the app and check if the graceful shutdown is triggered.
 
 - phase 6
-    - redis
+    - middleware for api timeout management 
+        - api timeout management by CancellationTokenSource
 
 - phase 7
-    - 
+    - redis
