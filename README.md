@@ -32,4 +32,7 @@
         - api timeout management by CancellationTokenSource
 
 - phase 7
-    - redis
+    - perfoamnce testing + loading testing
+
+- phase 8
+    - redis + lua 
