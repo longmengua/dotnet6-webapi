@@ -35,4 +35,7 @@
     - perfoamnce testing + loading testing
 
 - phase 8
+    - jwt, SSO, encryptiopn
+
+- phase 9
     - redis + lua 
