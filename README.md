@@ -6,6 +6,17 @@
     - backend skills => java, golang, c, node
     - frontend skills => react, vue
 
+## Oauth and JWT
+
+- Installation
+    - dotnet add package Microsoft.AspNetCore.Authentication.JwtBearer --version 6.0.1
+    - dotnet add package Microsoft.IdentityModel.Tokens
+    - dotnet add package System.IdentityModel.Tokens.Jwt
+    - dotnet add package Microsoft.AspNetCore.Authentication.OAuth
+
+- 
+
+
 ## phases
 
 - phase 1

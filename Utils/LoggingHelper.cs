@@ -6,12 +6,13 @@ namespace dotnet6_webapi.Utils;
 public static class LoggingHelper
 {
     // 配置 Serilog 記錄器
-    public static void ConfigureLogging(HostBuilderContext context, LoggerConfiguration configuration)
+    public static void Init(HostBuilderContext context, LoggerConfiguration loggerConfiguration, ConfigurationManager configuration)
     {
-        configuration
+        var url = configuration["ElasticSearch:URL"];
+        loggerConfiguration
             .Enrich.FromLogContext() // 從日志上下文中豐富日誌
             .WriteTo.Console() // 控制台輸出
-            .WriteTo.Elasticsearch(new ElasticsearchSinkOptions(new Uri("http://localhost:9200"))
+            .WriteTo.Elasticsearch(new ElasticsearchSinkOptions(new Uri(url))
             {
                 IndexFormat = "dotnet-webapi-logs-{0:yyyy.MM.dd}", // 設定索引名稱格式
                 AutoRegisterTemplate = true, // 自動註冊 Elasticsearch 的索引模板

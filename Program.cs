@@ -1,6 +1,9 @@
 using Serilog;
 using dotnet6_webapi.Utils;
 using dotnet6_webapi.Middlewares;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,7 +27,22 @@ builder.Services.AddCors(options =>
 // 配置 Serilog 記錄到 ELK
 builder.Host.UseSerilog((context, configuration) =>
 {
-    LoggingHelper.ConfigureLogging(context, configuration); // 調用封裝方法來設定日誌
+    LoggingHelper.Init(context, configuration, builder.Configuration); // 調用封裝方法來設定日誌
+});
+
+// 配置 JWT token 機制
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = builder.Configuration["Jwt:Issuer"],
+        ValidAudience = builder.Configuration["Jwt:Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:SecretKey"]))
+    };
 });
 
 var app = builder.Build();
