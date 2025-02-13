@@ -33,7 +33,8 @@ builder.Host.UseSerilog((context, configuration) =>
 // 配置 JWT token 機制
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
 {
-    JwtHelper.Init(options, builder.Configuration);
+    JwtHelper.SetConfiguration(builder.Configuration);
+    JwtHelper.Init(options);
 });
 
 var app = builder.Build();
