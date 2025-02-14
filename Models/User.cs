@@ -22,7 +22,7 @@ public class User
     [MaxLength(100)]
     public string Phone { get; set; }
 
-    public DateTime UpdatedAt { get; set; } = DateTime.Now;
+    public DateTimeOffset UpdatedAt { get; set; } = DateTimeOffset.Now;
 
-    public DateTime CreatedAt { get; set; } = DateTime.Now;
+    public DateTimeOffset CreatedAt { get; set; } = DateTimeOffset.Now;
 }

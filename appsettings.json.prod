@@ -1,6 +1,6 @@
 {
   "Jwt": {
-    "SecretKey": "defaultSuperSecretKeyForJwt",
+    "SecretKey": "JWTSecretKey",
     "Issuer": "JWTIssuer",
     "Audience": "JWTAudience"
   },

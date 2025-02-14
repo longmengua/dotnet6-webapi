@@ -8,6 +8,12 @@ public class Auth
     [Key]
     public int Id { get; set; }
 
+    [MaxLength(32)]
+    public string Account { get; set; }
+
+    [MaxLength(32)]
+    public string Password { get; set; }
+
     [MaxLength(16)]
     public string Token { get; set; }
 
@@ -25,7 +31,7 @@ public class Auth
 
     public virtual User User { get; set; }
 
-    public DateTime UpdatedAt { get; set; } = DateTime.Now;
+    public DateTimeOffset UpdatedAt { get; set; } = DateTimeOffset.Now;
 
-    public DateTime CreatedAt { get; set; } = DateTime.Now;
+    public DateTimeOffset CreatedAt { get; set; } = DateTimeOffset.Now;
 }
