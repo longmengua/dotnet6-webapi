@@ -21,6 +21,11 @@ public class JwtHelper
     }
     public static void Init(JwtBearerOptions options)
     {
+        if (string.IsNullOrWhiteSpace(secretKey) || string.IsNullOrWhiteSpace(issuer) || string.IsNullOrWhiteSpace(audience))
+        {
+            Log.Error("JWT setting is not set properly. System cannot initialize JWT authentication.");
+            throw new InvalidOperationException("JWT setting is not set properly. System cannot initialize JWT authentication.");
+        }
         options.TokenValidationParameters = new TokenValidationParameters
         {
             ValidateIssuer = true,
@@ -35,14 +40,17 @@ public class JwtHelper
 
     public static string GenerateToken(string account)
     {
-        Log.Information("GenerateToken - 1: {secretKey}", secretKey);
+        if (string.IsNullOrWhiteSpace(secretKey) || string.IsNullOrWhiteSpace(issuer) || string.IsNullOrWhiteSpace(audience))
+        {
+            Log.Error("Attempted to generate a JWT token but failed");
+            throw new InvalidOperationException("Attempted to generate a JWT token but failed");
+        }
+
         var claims = new List<Claim>
             {
                 new(ClaimTypes.Name, account),
                 // You can add more claims as needed
             };
-
-        Log.Information("GenerateToken - 2: {account}, {secretKey}", account, secretKey);
         var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
         var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 

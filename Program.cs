@@ -102,7 +102,8 @@ app.UseMiddleware<TimeoutMiddleware>(TimeSpan.FromSeconds(10));
 app.UseHttpsRedirection();
 
 // 啟用授權
-app.UseAuthorization();
+app.UseAuthentication(); // 先認證用戶身份
+app.UseAuthorization(); // 然後根據身份授權
 
 // 啟用 CORS
 app.UseCors("AllowAll");
