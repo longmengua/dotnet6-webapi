@@ -61,7 +61,7 @@ publish_output/
 artifacts/
 
 # ASP.NET and Entity Framework
-appsettings.*.json
+appsettings.json
 appsettings.Development.json
 appsettings.Staging.json
 appsettings.Production.json
@@ -84,3 +84,6 @@ appsettings.Production.json
 
 # Testing Results
 TestResults/
+
+# Publish
+out/

@@ -1,0 +1,14 @@
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        ENVIRONMENT: prod  # 設定為 prod，確保 Dockerfile 使用該環境變數
+    # environment:
+      # - ASPNETCORE_ENVIRONMENT=Production
+      # - TZ=Asia/Taipei
+    ports:
+      - "80:80"
+    # restart: always

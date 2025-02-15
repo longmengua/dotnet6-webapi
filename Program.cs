@@ -99,7 +99,7 @@ app.UseMiddleware<ExceptionHandlingMiddleware>();
 app.UseMiddleware<TimeoutMiddleware>(TimeSpan.FromSeconds(10));
 
 // 啟用 HTTPS 重定向
-app.UseHttpsRedirection();
+// app.UseHttpsRedirection();
 
 // 啟用授權
 app.UseAuthentication(); // 先認證用戶身份
