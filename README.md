@@ -1,5 +1,9 @@
 # dotnet6-webapi
 
+## import
+
+- 本專案全面設定成 http，因為理想的架構，前面應該有 gateway 處理 SSL 的問題(如：nginx)，故不用https。
+
 ## private docker push
 
 - 建置後推送到私人docker hub，請參照 build-and-push.sh 
