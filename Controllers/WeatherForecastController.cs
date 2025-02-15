@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using dotnet6_webapi.Models;
+using dotnet6_webapi.Dto;
 
 namespace dotnet6_webapi.Controllers;
 

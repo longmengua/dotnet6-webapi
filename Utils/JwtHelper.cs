@@ -1,22 +1,68 @@
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using Serilog;
 
 namespace dotnet6_webapi.Utils;
 
-public static class JwtHelper
+public class JwtHelper
 {
-    public static void Init(JwtBearerOptions options, ConfigurationManager configuration)
+    private static string? secretKey;
+    private static string? issuer;
+    private static string? audience;
+
+    public static void SetConfiguration(string? _secretKey, string? _issuer, string? _audience)
     {
+        secretKey = _secretKey;
+        issuer = _issuer;
+        audience = _audience;
+    }
+    public static void Init(JwtBearerOptions options)
+    {
+        if (string.IsNullOrWhiteSpace(secretKey) || string.IsNullOrWhiteSpace(issuer) || string.IsNullOrWhiteSpace(audience))
+        {
+            Log.Error("JWT setting is not set properly. System cannot initialize JWT authentication.");
+            throw new InvalidOperationException("JWT setting is not set properly. System cannot initialize JWT authentication.");
+        }
         options.TokenValidationParameters = new TokenValidationParameters
         {
             ValidateIssuer = true,
             ValidateAudience = true,
             ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
-            ValidIssuer = configuration["Jwt:Issuer"],
-            ValidAudience = configuration["Jwt:Audience"],
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:SecretKey"]))
+            ValidIssuer = issuer,
+            ValidAudience = audience,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey))
         };
+    }
+
+    public static string GenerateToken(string account)
+    {
+        if (string.IsNullOrWhiteSpace(secretKey) || string.IsNullOrWhiteSpace(issuer) || string.IsNullOrWhiteSpace(audience))
+        {
+            Log.Error("Attempted to generate a JWT token but failed");
+            throw new InvalidOperationException("Attempted to generate a JWT token but failed");
+        }
+
+        var claims = new List<Claim>
+            {
+                new(ClaimTypes.Name, account),
+                // You can add more claims as needed
+            };
+        var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
+        var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+
+        var tokenDescriptor = new JwtSecurityToken(
+            issuer: issuer,
+            audience: audience,
+            claims: claims,
+            expires: DateTime.Now.AddHours(1), // Set expiration time as needed
+            signingCredentials: credentials
+        );
+
+        var tokenHandler = new JwtSecurityTokenHandler();
+        return tokenHandler.WriteToken(tokenDescriptor);
     }
 }

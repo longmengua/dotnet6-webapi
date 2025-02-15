@@ -2,10 +2,15 @@ using Serilog;
 using dotnet6_webapi.Utils;
 using dotnet6_webapi.Middlewares;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// 讀取預設 `appsettings.json`
+builder.Configuration
+    .SetBasePath(Directory.GetCurrentDirectory()) // 設定根目錄
+    .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+    .AddEnvironmentVariables()
+    .AddCommandLine(args);
 
 // 添加服務到容器
 builder.Services.AddControllers();
@@ -31,10 +36,28 @@ builder.Host.UseSerilog((context, configuration) =>
 });
 
 // 配置 JWT token 機制
+var jwtSettings = builder.Configuration.GetSection("Jwt");
+JwtHelper.SetConfiguration(
+  jwtSettings.GetValue<string>("SecretKey"),
+  jwtSettings.GetValue<string>("Issuer"),
+  jwtSettings.GetValue<string>("Audience")
+);
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
 {
-    JwtHelper.Init(options, builder.Configuration);
+    JwtHelper.Init(options);
 });
+
+// 開發環境配置
+if (builder.Environment.IsDevelopment())
+{
+    builder.Services.AddSwaggerGen(c =>
+    {
+        SwaggerHelper.Init(c); // 啟用 JWT token 功能
+    });
+}
+
+
+
 
 var app = builder.Build();
 
@@ -79,7 +102,8 @@ app.UseMiddleware<TimeoutMiddleware>(TimeSpan.FromSeconds(10));
 app.UseHttpsRedirection();
 
 // 啟用授權
-app.UseAuthorization();
+app.UseAuthentication(); // 先認證用戶身份
+app.UseAuthorization(); // 然後根據身份授權
 
 // 啟用 CORS
 app.UseCors("AllowAll");

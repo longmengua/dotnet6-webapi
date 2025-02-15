@@ -1,5 +1,7 @@
-
+using dotnet6_webapi.Models;
+using dotnet6_webapi.Utils;
 using Microsoft.AspNetCore.Mvc;
+using Serilog;
 
 namespace dotnet6_webapi.Controllers.external;
 
@@ -7,26 +9,45 @@ namespace dotnet6_webapi.Controllers.external;
 [ApiController]
 public class AuthController : ControllerBase
 {
-    private readonly ILogger<AuthController> _logger;
-    public AuthController(ILogger<AuthController> logger)
+    private readonly IConfiguration _config;
+
+    public AuthController(IConfiguration config)
     {
-        _logger = logger;
+        _config = config;
     }
 
     [HttpPost("login")]
     public IActionResult Login([FromBody] LoginRequest request)
     {
-        if (request.Username == "test" && request.Password == "password")
+        Log.Information("Received request: {account}, {password}", request.Account, request.Password);
+        // 這邊應該連接 SSO 進行用戶驗證
+        var auth = AuthenticateUser(request.Account ?? "", request.Password ?? "");
+        Log.Information("Received AuthenticateUser: {auth}", auth.Account);
+        if (auth != null)
         {
-            var token = TokenService.GenerateToken(request.Username);
-            return Ok(new { Token = token });
+            var token = JwtHelper.GenerateToken(request.Account ?? "");
+            var jwt = $"Bearer {token}";
+            return Ok(new { jwt });
         }
-        return Unauthorized();
+
+        return Unauthorized("Invalid credentials");
+    }
+
+    // 模擬 SSO 認證 (這裡你應該實現與 SSO 伺服器的連接)
+    private Auth AuthenticateUser(string account, string password)
+    {
+        var toReturn = new Auth();
+        Log.Information("AuthenticateUser Result: {result}", account == "admin" && password == "123");
+        if (account == "admin" && password == "123") // 這是模擬邏輯，應該與 SSO 驗證接口對接
+        {
+            toReturn.Account = account;
+        }
+        return toReturn;
     }
 }
 
 public class LoginRequest
 {
-    public string? Username { get; set; }
+    public string? Account { get; set; }
     public string? Password { get; set; }
 }
