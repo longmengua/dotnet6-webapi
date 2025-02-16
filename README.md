@@ -78,6 +78,13 @@
 
 - phase 7
     - 實作登入、JWT 驗證
+        - 先用內建的
+```
+// 啟用授權
+app.UseAuthentication(); // 先認證用戶身份
+app.UseAuthorization(); // 然後根據身份授權
+```
+        - 再改用 filter 跟 DB 實作
 
 - phase 8
     - perfoamnce test with Locust (壓測)
