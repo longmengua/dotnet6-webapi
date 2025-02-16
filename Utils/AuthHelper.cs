@@ -7,18 +7,33 @@ using Serilog;
 
 namespace dotnet6_webapi.Utils;
 
-public class JwtHelper
+/// <summary>
+/// 
+/// </summary>
+public class AuthHelper
 {
     private static string? secretKey;
     private static string? issuer;
     private static string? audience;
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="_secretKey"></param>
+    /// <param name="_issuer"></param>
+    /// <param name="_audience"></param>
     public static void SetConfiguration(string? _secretKey, string? _issuer, string? _audience)
     {
         secretKey = _secretKey;
         issuer = _issuer;
         audience = _audience;
     }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="options"></param>
+    /// <exception cref="InvalidOperationException"></exception>
     public static void Init(JwtBearerOptions options)
     {
         if (string.IsNullOrWhiteSpace(secretKey) || string.IsNullOrWhiteSpace(issuer) || string.IsNullOrWhiteSpace(audience))
@@ -38,7 +53,14 @@ public class JwtHelper
         };
     }
 
-    public static string GenerateToken(string account)
+    /// <summary>
+    /// todo: expiryHours
+    /// </summary>
+    /// <param name="account"></param>
+    /// <param name="expiryHours"></param>
+    /// <returns></returns>
+    /// <exception cref="InvalidOperationException"></exception>
+    public static string GenerateToken(string account, int? expiryHours)
     {
         if (string.IsNullOrWhiteSpace(secretKey) || string.IsNullOrWhiteSpace(issuer) || string.IsNullOrWhiteSpace(audience))
         {
@@ -58,11 +80,53 @@ public class JwtHelper
             issuer: issuer,
             audience: audience,
             claims: claims,
-            expires: DateTime.Now.AddHours(1), // Set expiration time as needed
+            expires: DateTime.Now.AddHours(expiryHours ?? 1), // Set expiration time as needed
             signingCredentials: credentials
         );
 
         var tokenHandler = new JwtSecurityTokenHandler();
         return tokenHandler.WriteToken(tokenDescriptor);
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="token"></param>
+    /// <param name="principal"></param>
+    /// <returns></returns>
+    public static bool VerifyToken(string token, out ClaimsPrincipal? principal)
+    {
+        principal = null;
+        if (string.IsNullOrWhiteSpace(secretKey) || string.IsNullOrWhiteSpace(issuer) || string.IsNullOrWhiteSpace(audience))
+        {
+            Log.Error("Attempted to verify a JWT token but JWT settings are not properly configured.");
+            return false;
+        }
+
+        var tokenHandler = new JwtSecurityTokenHandler();
+        var key = Encoding.UTF8.GetBytes(secretKey);
+
+        try
+        {
+            var validationParameters = new TokenValidationParameters
+            {
+                ValidateIssuer = true,
+                ValidateAudience = true,
+                ValidateLifetime = true,
+                ValidateIssuerSigningKey = true,
+                ValidIssuer = issuer,
+                ValidAudience = audience,
+                IssuerSigningKey = new SymmetricSecurityKey(key),
+                ClockSkew = TimeSpan.Zero // Reduce token expiration delay
+            };
+
+            principal = tokenHandler.ValidateToken(token, validationParameters, out _);
+            return true;
+        }
+        catch (Exception ex)
+        {
+            Log.Error($"JWT validation failed: {ex.Message}");
+            return false;
+        }
     }
 }

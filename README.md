@@ -1,5 +1,10 @@
 # dotnet6-webapi
 
+## clean Nuget
+
+- dotnet nuget locals all --clear
+- dotnet restore
+
 ## import
 
 - 本專案全面設定成 http，因為理想的架構，前面應該有 gateway 處理 SSL 的問題(如：nginx)，故不用https。

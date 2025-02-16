@@ -25,7 +25,7 @@ public class AuthController : ControllerBase
         Log.Information("Received AuthenticateUser: {auth}", auth.Account);
         if (auth != null)
         {
-            var token = JwtHelper.GenerateToken(request.Account ?? "");
+            var token = AuthHelper.GenerateToken(request.Account ?? "", 1);
             var jwt = $"Bearer {token}";
             return Ok(new { jwt });
         }

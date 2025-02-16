@@ -37,14 +37,14 @@ builder.Host.UseSerilog((context, configuration) =>
 
 // 配置 JWT token 機制
 var jwtSettings = builder.Configuration.GetSection("Jwt");
-JwtHelper.SetConfiguration(
+AuthHelper.SetConfiguration(
   jwtSettings.GetValue<string>("SecretKey"),
   jwtSettings.GetValue<string>("Issuer"),
   jwtSettings.GetValue<string>("Audience")
 );
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
 {
-    JwtHelper.Init(options);
+    AuthHelper.Init(options);
 });
 
 // 開發環境配置
@@ -101,9 +101,12 @@ app.UseMiddleware<TimeoutMiddleware>(TimeSpan.FromSeconds(10));
 // 啟用 HTTPS 重定向
 // app.UseHttpsRedirection();
 
-// 啟用授權
-app.UseAuthentication(); // 先認證用戶身份
-app.UseAuthorization(); // 然後根據身份授權
+// 啟用授權 (.net 內建)
+// app.UseAuthentication(); // 先認證用戶身份
+// app.UseAuthorization(); // 然後根據身份授權
+
+// 客製化的 Auth
+app.UseMiddleware<AuthMiddleware>();
 
 // 啟用 CORS
 app.UseCors("AllowAll");
