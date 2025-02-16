@@ -53,33 +53,34 @@
 ## phases
 
 - phase 1
-    - create a project with the command
+    - 建立 .net 6 專案
         - dotnet new webapi -n dotnet6-webapi 
 
 - phase 2
-    - remove IIS of launchSetting, coz it will be run in linux.
+    - 移除 IIS of launchSetting，因為伺服器會架設在 Linux 系列的主機
+    - 降低 window license 費用
 
 - phase 3
-    - change log mechanism to integrate with ELK
+    - 整合 Log 到 ELK，用 Serilog 取代 Logstash，其餘不變。
 
 - phase 4
-    - middleware for exception capture 
+    - 異常捕捉 middleware
 
 - phase 5
-    - graceful shutdown
-        - test
+    - graceful shutdown (優雅關閉，用於滾動式更新、藍綠部署、金絲雀部署...等等。)
+        - 測試方式
             - Use the command `dotnet run` to launch the app.
             - Then use `Ctrl + C` to stop the app and check if the graceful shutdown is triggered.
 
 - phase 6
-    - middleware for api timeout management 
-        - api timeout management by CancellationTokenSource
+    - API timeout middleware
+        - 透過 CancellationTokenSource 設定每個 API timeout 時間，以避免死鎖發生。
 
 - phase 7
-    - jwt, SSO, encryptiopn
+    - 實作登入、JWT 驗證
 
 - phase 8
-    - perfoamnce testing + loading testing
+    - perfoamnce test with Locust (壓測)
 
 - phase 9
     - redis + lua 
