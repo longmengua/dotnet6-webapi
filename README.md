@@ -1,15 +1,27 @@
 # dotnet6-webapi
 
-## clean Nuget
+## 自學 c# for webapi
+
+- 背景
+    - 後端
+        - java, golang, c, node
+    - 前端
+        - react, vue3, angularJS, ember, nuxt3, next
+    - 智能合約
+        - solidity
+    - 雲端
+        - AWS, GCP
+
+## 清除 Package
 
 - dotnet nuget locals all --clear
 - dotnet restore
 
-## import
+## 前言
 
 - 本專案全面設定成 http，因為理想的架構，前面應該有 gateway 處理 SSL 的問題(如：nginx)，故不用https。
 
-## private docker push
+## 私人 Docker Hub 推送
 
 - 建置後推送到私人docker hub，請參照 build-and-push.sh 
     - 如果 docker registry 未設定https ，默認為http，那在推送端需要對docker做推送調整。
@@ -28,34 +40,7 @@
 - curl http://<your-gcp-vm-ip>:5000/v2/<repository_name>/tags/list
     - curl http://34.56.193.143:5000/v2/dotnet-webapi/tags/list
 
-## self learn c# for webapi
-
-- background
-    - backend skills => java, golang, c, node
-    - frontend skills => react, vue
-
-## Oauth and JWT
-
-- Installation
-    - dotnet add package Microsoft.AspNetCore.Authentication.JwtBearer --version 6.0.1
-    - dotnet add package Microsoft.IdentityModel.Tokens
-    - dotnet add package System.IdentityModel.Tokens.Jwt
-    - dotnet add package Microsoft.AspNetCore.Authentication.OAuth
-
-## Testing 
-
-- dotnet add package xunit
-    - 單元測試框架，用來撰寫和執行測試案例
-    - 單元測試（Unit Test）：測試 Controller、Service、Repository。
-    - 整合測試（Integration Test）：結合 WebApplicationFactory 來測試整個 API。
-
-- dotnet add package Microsoft.AspNetCore.Mvc.Testing
-    - 提供 WebApplicationFactory<T>，用來啟動一個 測試版的 Web API，讓測試可以直接呼叫 API 進行整合測試
-    - 整合測試（Integration Test）：測試 API 端點是否能夠正確運行。
-    - 模擬真正的 HTTP 請求，確保 API 可用性。
-
-
-## phases
+## 里程碑
 
 - phase 1
     - 建立 .net 6 專案

@@ -1,7 +1,7 @@
 using Serilog;
 using dotnet6_webapi.Utils;
 using dotnet6_webapi.Middlewares;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+// using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 var builder = WebApplication.CreateBuilder(args);
 
