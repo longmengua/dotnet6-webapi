@@ -1,7 +1,7 @@
 using Serilog;
 using dotnet6_webapi.Utils;
 using dotnet6_webapi.Middleware;
-// using Microsoft.AspNetCore.Authentication.JwtBearer;
+using dotnet6_webapi.Contexts;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,6 +29,12 @@ builder.Services.AddCors(options =>
     });
 });
 
+// 配置 DB 設定
+builder.Services.AddDbContext<AppDbContext>(options =>
+{
+    DBHelper.Init(options, builder.Configuration);
+});
+
 // 配置 Serilog 記錄到 ELK
 builder.Host.UseSerilog((context, configuration) =>
 {
@@ -36,12 +42,12 @@ builder.Host.UseSerilog((context, configuration) =>
 });
 
 // 配置 JWT token 機制
-var jwtSettings = builder.Configuration.GetSection("Jwt");
-AuthHelper.SetConfiguration(
-  jwtSettings.GetValue<string>("SecretKey"),
-  jwtSettings.GetValue<string>("Issuer"),
-  jwtSettings.GetValue<string>("Audience")
-);
+// var jwtSettings = builder.Configuration.GetSection("Jwt");
+// AuthHelper.SetConfiguration(
+//   jwtSettings.GetValue<string>("SecretKey"),
+//   jwtSettings.GetValue<string>("Issuer"),
+//   jwtSettings.GetValue<string>("Audience")
+// );
 // builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
 // {
 //     AuthHelper.Init(options);

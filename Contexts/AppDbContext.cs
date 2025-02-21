@@ -3,10 +3,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace dotnet6_webapi.Contexts;
 
-public class MyDatabaseContext : DbContext
+public class AppDbContext : DbContext
 {
     public DbSet<User>? Users { get; set; }
     public DbSet<Auth>? Auths { get; set; }
+
+    public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
