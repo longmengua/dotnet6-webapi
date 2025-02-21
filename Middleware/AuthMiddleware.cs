@@ -2,7 +2,7 @@ using System.Security.Claims;
 using dotnet6_webapi.Utils;
 using Serilog;
 
-namespace dotnet6_webapi.Middlewares;
+namespace dotnet6_webapi.Middleware;
 
 public class AuthMiddleware
 {

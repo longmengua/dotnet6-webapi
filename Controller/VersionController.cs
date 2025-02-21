@@ -1,7 +1,7 @@
 using System.Reflection;
 using Microsoft.AspNetCore.Mvc;
 
-namespace dotnet6_webapi.Controllers
+namespace dotnet6_webapi.Controller
 {
     [Route("/")]
     [ApiController]

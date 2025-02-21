@@ -1,4 +1,4 @@
-namespace dotnet6_webapi.Middlewares;
+namespace dotnet6_webapi.Middleware;
 
 public class TimeoutMiddleware
 {

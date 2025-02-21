@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace dotnet6_webapi.Controllers.external;
+namespace dotnet6_webapi.Controller.external;
 
 [Route("api/external/data")]
 [ApiController]

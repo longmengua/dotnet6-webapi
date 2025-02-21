@@ -1,6 +1,6 @@
 using Serilog;
 
-namespace dotnet6_webapi.Middlewares;
+namespace dotnet6_webapi.Middleware;
 
 public class ExceptionHandlingMiddleware
 {
