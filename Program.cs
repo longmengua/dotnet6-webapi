@@ -42,10 +42,10 @@ AuthHelper.SetConfiguration(
   jwtSettings.GetValue<string>("Issuer"),
   jwtSettings.GetValue<string>("Audience")
 );
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
-{
-    AuthHelper.Init(options);
-});
+// builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+// {
+//     AuthHelper.Init(options);
+// });
 
 // 開發環境配置
 if (builder.Environment.IsDevelopment())
