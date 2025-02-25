@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace dotnet6_webapi.Controller.privates;
 
-[Route("api/privates")]
+[Route("api/privates/Data")]
 [ApiController]
 [Authorize]
 public class DataController : ControllerBase
@@ -14,7 +14,7 @@ public class DataController : ControllerBase
         _logger = logger;
     }
 
-    [HttpGet("Data")]
+    [HttpGet("")]
     public IActionResult GetData()
     {
         return Ok(new { message = "This is a protected endpoint!" });
