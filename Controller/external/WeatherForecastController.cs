@@ -4,7 +4,7 @@ using dotnet6_webapi.DTOs;
 namespace dotnet6_webapi.Controller;
 
 [ApiController]
-[Route("[controller]")]
+[Route("api/external")]
 public class WeatherForecastController : ControllerBase
 {
     private static readonly string[] Summaries = new[]
@@ -19,7 +19,7 @@ public class WeatherForecastController : ControllerBase
         _logger = logger;
     }
 
-    [HttpGet(Name = "GetWeatherForecast")]
+    [HttpGet("GetWeatherForecast")]
     public async Task<IEnumerable<WeatherForecastRes>> Get()
     {
         await Task.Delay(15000); // 15秒，如果用 System.Threading.Thread.Sleep，不會觸發。

@@ -6,7 +6,7 @@ using Serilog;
 
 namespace dotnet6_webapi.Controller.external;
 
-[Route("api/external/auth")]
+[Route("api/external")]
 [ApiController]
 public class AuthController : ControllerBase
 {
@@ -17,7 +17,7 @@ public class AuthController : ControllerBase
         this.authService = authService;
     }
 
-    [HttpPost("login")]
+    [HttpPost("Login")]
     public IActionResult Login([FromBody] LoginReq request)
     {
         Log.Information("Received request: {account}, {password}", request.Account, request.Password);

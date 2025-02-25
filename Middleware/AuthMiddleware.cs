@@ -9,8 +9,7 @@ public class AuthMiddleware
     private readonly RequestDelegate _next;
     private readonly HashSet<string> _whitelistPaths = new()
     {
-        "/",
-        "/login",
+        "/api/external",
     };
 
     public AuthMiddleware(RequestDelegate next)
@@ -23,10 +22,13 @@ public class AuthMiddleware
         var path = context.Request.Path.Value?.ToLower();
 
         // 若在白名單中，直接放行
-        if (path != null && _whitelistPaths.Any(p => path.Equals(p)))
+        if (path != null)
         {
-            await _next(context);
-            return;
+            if ("".Equals(path) || _whitelistPaths.Any(p => path.StartsWith(p)))
+            {
+                await _next(context);
+                return;
+            }
         }
 
         var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
