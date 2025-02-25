@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace dotnet6_webapi.Controller.external;
+namespace dotnet6_webapi.Controller.privates;
 
-[Route("api/auth")]
+[Route("api/privates")]
 [ApiController]
 [Authorize]
 public class DataController : ControllerBase

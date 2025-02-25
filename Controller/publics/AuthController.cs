@@ -4,9 +4,9 @@ using dotnet6_webapi.Utils;
 using Microsoft.AspNetCore.Mvc;
 using Serilog;
 
-namespace dotnet6_webapi.Controller.external;
+namespace dotnet6_webapi.Controller.publics;
 
-[Route("api/external")]
+[Route("api/publics")]
 [ApiController]
 public class AuthController : ControllerBase
 {

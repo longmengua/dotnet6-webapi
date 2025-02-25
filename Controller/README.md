@@ -2,7 +2,7 @@
 
 - root path
     - 版本號確認用，可以用監控系統每 n 分鐘確認存活。
-- auth
+- private
     - 需要登入的API。
 - external
     - 不需要登入的API。

@@ -9,7 +9,7 @@ public class AuthMiddleware
     private readonly RequestDelegate _next;
     private readonly HashSet<string> _whitelistPaths = new()
     {
-        "/api/external",
+        "/api/publics",
     };
 
     public AuthMiddleware(RequestDelegate next)

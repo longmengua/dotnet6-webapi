@@ -1,10 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
 using dotnet6_webapi.DTOs;
 
-namespace dotnet6_webapi.Controller;
+namespace dotnet6_webapi.Controller.internals;
 
 [ApiController]
-[Route("api/external")]
+[Route("api/internals")]
 public class WeatherForecastController : ControllerBase
 {
     private static readonly string[] Summaries = new[]
