@@ -7,8 +7,12 @@ namespace dotnet6_webapi.Middleware;
 public class AuthMiddleware
 {
     private readonly RequestDelegate _next;
+    private readonly HashSet<string> _whitelistPaths = new()
+    {
+        "/",
+        "/login",
+    };
 
-    // 建構函式，初始化超時時間
     public AuthMiddleware(RequestDelegate next)
     {
         _next = next;
@@ -16,6 +20,15 @@ public class AuthMiddleware
 
     public async Task InvokeAsync(HttpContext context)
     {
+        var path = context.Request.Path.Value?.ToLower();
+
+        // 若在白名單中，直接放行
+        if (path != null && _whitelistPaths.Any(p => path.Equals(p)))
+        {
+            await _next(context);
+            return;
+        }
+
         var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
         if (string.IsNullOrEmpty(token))
         {
