@@ -1,6 +1,6 @@
-namespace dotnet6_webapi.DTOs;
+namespace dotnet6_webapi.DTO.Res;
 
-public class WeatherForecastRes
+public class WeatherForecast
 {
     public DateTime Date { get; set; }
 

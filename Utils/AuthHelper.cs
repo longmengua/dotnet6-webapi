@@ -8,7 +8,9 @@ using Serilog;
 namespace dotnet6_webapi.Utils;
 
 /// <summary>
-/// 
+/// 產生 JWT token的地方。(大約設置15分鐘左右，被盜取最多15分鐘有效，也可減輕 server 壓力。)
+/// 關於 Fresh token 部分，直接放在資料庫管理，故不用要特別符合jwt格式，直接產一個16進位即可。(後端可以即時控管有效期)
+/// 如有資安疑慮，可用 RSA 非對稱於前後端處理加解密(public key, private key)方式，另一方面如遇到攻擊，及時更換key也好處理跟追蹤。
 /// </summary>
 public class AuthHelper
 {
@@ -36,6 +38,7 @@ public class AuthHelper
     /// <exception cref="InvalidOperationException"></exception>
     public static void Init(JwtBearerOptions options)
     {
+        // 確認 appsetting 有無設定正確。
         if (string.IsNullOrWhiteSpace(secretKey) || string.IsNullOrWhiteSpace(issuer) || string.IsNullOrWhiteSpace(audience))
         {
             Log.Error("JWT setting is not set properly. System cannot initialize JWT authentication.");
@@ -54,7 +57,7 @@ public class AuthHelper
     }
 
     /// <summary>
-    /// todo: expiryHours
+    ///  產出 JWT token
     /// </summary>
     /// <param name="account"></param>
     /// <param name="expiryHours"></param>
@@ -89,7 +92,7 @@ public class AuthHelper
     }
 
     /// <summary>
-    /// 
+    ///  驗證 JWT token
     /// </summary>
     /// <param name="token"></param>
     /// <param name="principal"></param>
