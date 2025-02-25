@@ -6,7 +6,7 @@ using Serilog;
 
 namespace dotnet6_webapi.Controller.publics;
 
-[Route("api/publics")]
+[Route("api/publics/auth")]
 [ApiController]
 public class AuthController : ControllerBase
 {
