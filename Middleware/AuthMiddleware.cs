@@ -20,11 +20,11 @@ public class AuthMiddleware
     public async Task InvokeAsync(HttpContext context)
     {
         var path = context.Request.Path.Value?.ToLower();
-
+        Log.Information($"Request path: {path}");
         // 若在白名單中，直接放行
         if (path != null)
         {
-            if ("".Equals(path) || _whitelistPaths.Any(p => path.StartsWith(p)))
+            if ("/".Equals(path) || _whitelistPaths.Any(p => path.StartsWith(p)))
             {
                 await _next(context);
                 return;

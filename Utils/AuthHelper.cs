@@ -63,19 +63,19 @@ public class AuthHelper
     /// <param name="expiryHours"></param>
     /// <returns></returns>
     /// <exception cref="InvalidOperationException"></exception>
-    public static string GenerateToken(string account, int? expiryHours)
+    public static string GenerateToken<T>(T data, int expiryHours = 1)
     {
         if (string.IsNullOrWhiteSpace(secretKey) || string.IsNullOrWhiteSpace(issuer) || string.IsNullOrWhiteSpace(audience))
         {
-            Log.Error("Attempted to generate a JWT token but failed");
-            throw new InvalidOperationException("Attempted to generate a JWT token but failed");
+            throw new InvalidOperationException("Required configuration is missing");
         }
 
-        var claims = new List<Claim>
-            {
-                new(ClaimTypes.Name, account),
-                // You can add more claims as needed
-            };
+        // 透過反射將 T 類型的屬性轉為 claims
+        var claims = data?.GetType()
+                         .GetProperties()
+                         .Select(p => new Claim(p.Name, p.GetValue(data)?.ToString() ?? ""))
+                         .ToList();
+
         var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
         var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
@@ -83,7 +83,7 @@ public class AuthHelper
             issuer: issuer,
             audience: audience,
             claims: claims,
-            expires: DateTime.Now.AddHours(expiryHours ?? 1), // Set expiration time as needed
+            expires: DateTime.Now.AddHours(expiryHours), // Set expiration time as needed
             signingCredentials: credentials
         );
 

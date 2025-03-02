@@ -40,6 +40,13 @@
 - curl http://<your-gcp-vm-ip>:5000/v2/<repository_name>/tags/list
     - curl http://34.56.193.143:5000/v2/dotnet-webapi/tags/list
 
+## EF core
+
+- dotnet tool install --global dotnet-ef --version 6.0.6
+    - dotnet ef --version
+    - dotnet ef migrations add InitialCreate
+    - dotnet ef database update
+
 ## 里程碑
 
 - phase 1

@@ -5,16 +5,16 @@ using Serilog;
 namespace dotnet6_webapi.Service;
 public class AuthService
 {
-    private readonly AuthRepo authRepo;
+    private readonly UserRepo authRepo;
 
-    public AuthService(AuthRepo authRepo)
+    public AuthService(UserRepo authRepo)
     {
         this.authRepo = authRepo;
     }
 
     public Auth AuthenticateUser(string account, string password)
     {
-        var auth = authRepo.VerifyUser(account, password);
+        var auth = authRepo.Login(account, password);
         var toReturn = new Auth { Account = auth.Account };
         return toReturn;
     }

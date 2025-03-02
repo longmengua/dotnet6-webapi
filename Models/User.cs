@@ -8,6 +8,10 @@ public class User
     public int Id { get; set; }
 
     [MaxLength(10)]
+    public string Account { get; set; }
+    [MaxLength(10)]
+    public string Password { get; set; }
+    [MaxLength(10)]
     public string? FirstName { get; set; }
 
     [MaxLength(10)]

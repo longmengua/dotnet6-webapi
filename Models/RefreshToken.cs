@@ -16,19 +16,9 @@ public class RefreshToken
     public string Token { get; set; } = string.Empty;
 
     /// <summary>
-    /// 關聯的使用者 ID
-    /// </summary>
-    public int UserId { get; set; }
-
-    /// <summary>
     /// Token 建立時間
     /// </summary>
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-
-    /// <summary>
-    /// Token 過期時間
-    /// </summary>
-    public DateTime ExpiresAt { get; set; }
 
     /// <summary>
     /// 是否已使用過
@@ -41,9 +31,9 @@ public class RefreshToken
     public bool IsRevoked { get; set; } = false;
 
     /// <summary>
-    /// 確認 Token 是否仍有效（未過期、未使用、未撤銷）
+    /// 確認 Token 是否仍有效（未使用、未撤銷）
     /// </summary>
-    public bool IsValid => !IsUsed && !IsRevoked && DateTime.UtcNow < ExpiresAt;
+    public bool IsValid => !IsUsed && !IsRevoked;
 
     // 可選的導覽屬性
     public ICollection<UserRefreshToken>? UserRefreshTokens { get; set; }
