@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using dotnet6_webapi.DTOs;
+using dotnet6_webapi.DTO;
+using dotnet6_webapi.DTO.Res;
 
 namespace dotnet6_webapi.Controller.internals;
 
@@ -20,10 +21,10 @@ public class WeatherForecastController : ControllerBase
     }
 
     [HttpGet("GetInfo")]
-    public async Task<IEnumerable<WeatherForecastRes>> Get()
+    public async Task<IEnumerable<WeatherForecast>> Get()
     {
         await Task.Delay(15000); // 15秒，如果用 System.Threading.Thread.Sleep，不會觸發。
-        return Enumerable.Range(1, 5).Select(index => new WeatherForecastRes
+        return Enumerable.Range(1, 5).Select(index => new WeatherForecast
         {
             Date = DateTime.Now.AddDays(index),
             TemperatureC = Random.Shared.Next(-20, 55),

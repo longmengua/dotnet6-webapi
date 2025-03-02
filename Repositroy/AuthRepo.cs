@@ -1,4 +1,4 @@
-using dotnet6_webapi.Models;
+using dotnet6_webapi.DTO.Res;
 
 namespace dotnet6_webapi.Repositroy;
 public class AuthRepo

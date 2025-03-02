@@ -1,4 +1,4 @@
-using dotnet6_webapi.DTOs;
+using dotnet6_webapi.DTO.Res;
 using dotnet6_webapi.Repositroy;
 using Serilog;
 
@@ -12,10 +12,10 @@ public class AuthService
         this.authRepo = authRepo;
     }
 
-    public AuthRes AuthenticateUser(string account, string password)
+    public Auth AuthenticateUser(string account, string password)
     {
         var auth = authRepo.VerifyUser(account, password);
-        var toReturn = new AuthRes { Account = auth.Account };
+        var toReturn = new Auth { Account = auth.Account };
         return toReturn;
     }
 }

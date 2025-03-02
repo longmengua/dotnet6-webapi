@@ -1,4 +1,4 @@
-using dotnet6_webapi.DTOs;
+using dotnet6_webapi.DTO.Req;
 using dotnet6_webapi.Service;
 using dotnet6_webapi.Utils;
 using Microsoft.AspNetCore.Mvc;
@@ -18,7 +18,7 @@ public class AuthController : ControllerBase
     }
 
     [HttpPost("Login")]
-    public IActionResult Login([FromBody] LoginReq request)
+    public IActionResult Login([FromBody] Login request)
     {
         Log.Information("Received request: {account}, {password}", request.Account, request.Password);
         // 這邊應該連接 SSO 進行用戶驗證
