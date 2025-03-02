@@ -11,8 +11,39 @@ services:
       POSTGRES_PASSWORD: postgres
     ports:
       - "5432:5432"
-    # volumes:
-      # - postgres_data:/var/lib/postgresql/data
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
 
-# volumes:
-  # postgres_data:
+  redis:
+    image: redis:latest
+    container_name: redis_db
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+
+  # connection url => redis://host.docker.internal:6379
+  redisinsight:
+    image: redislabs/redisinsight:latest
+    container_name: redis_insight
+    restart: always
+    ports:
+      - "5540:5540"
+    volumes:
+      - redisinsight_data:/db
+
+  dbeaver:
+    image: dbeaver/cloudbeaver:latest
+    container_name: dbeaver
+    restart: always
+    ports:
+      - "8978:8978"
+    volumes:
+      - dbeaver_data:/opt/cloudbeaver/workspace
+
+volumes:
+  postgres_data:
+  redis_data:
+  redisinsight_data:
+  dbeaver_data:

@@ -13,4 +13,4 @@ services:
       - master
     command: --worker --master-host locust-master
     deploy:
-      replicas: 10  # 調整 worker 數量
+      replicas: 5  # 調整 worker 數量
