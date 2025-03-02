@@ -45,6 +45,7 @@
 - dotnet tool install --global dotnet-ef --version 6.0.6
     - dotnet ef --version
     - dotnet ef migrations add InitialCreate
+        - 如果不能執行，就先執行 dotnet build，在執行此指令
     - dotnet ef database update
 
 ## 里程碑
