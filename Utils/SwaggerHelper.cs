@@ -10,7 +10,7 @@ public class SwaggerHelper
 {
     public static void Init(SwaggerGenOptions c)
     {
-        // 下面會自動補上 bearer，但由於 API 已經協助補上 bearer，故不需要補。
+        // 系統自動補上 bearer。
         // c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
         // {
         //     Type = SecuritySchemeType.Http,
@@ -19,6 +19,7 @@ public class SwaggerHelper
         //     Description = "Enter your JWT token in the format 'Bearer {your token}'"
         // });
 
+        // 手動補上 bearer。
         c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
         {
             Type = SecuritySchemeType.ApiKey,

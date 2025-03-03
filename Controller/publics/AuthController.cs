@@ -6,7 +6,7 @@ using Serilog;
 
 namespace dotnet6_webapi.Controller.publics;
 
-[Route("api/publics/auth")]
+[Route("api")]
 [ApiController]
 public class AuthController : ControllerBase
 {
@@ -17,7 +17,7 @@ public class AuthController : ControllerBase
         this.authService = authService;
     }
 
-    [HttpPost("Login")]
+    [HttpPost("publics/auth/Login")]
     public IActionResult Login([FromBody] Login request)
     {
         var auth = authService.AuthenticateUser(request.Account ?? "", request.Password ?? "");
@@ -32,7 +32,7 @@ public class AuthController : ControllerBase
         return Unauthorized("Invalid credentials");
     }
 
-    [HttpPost("Register")]
+    [HttpPost("publics/auth/Register")]
     public IActionResult Register([FromBody] Register request)
     {
         if (string.IsNullOrEmpty(request.Account) || string.IsNullOrEmpty(request.Password))
@@ -52,14 +52,14 @@ public class AuthController : ControllerBase
         return Ok(new { auth.Account, jwtToken, refreshToken });
     }
 
-    [HttpPost("UpdatePassword")]
+    [HttpPost("private/auth/UpdatePassword")]
     public IActionResult UpdatePassword([FromBody] UpdatePassword request)
     {
         var auth = authService.UpdateUserPassword(request.Account ?? "", request.NewPassword ?? "");
         return Ok(new { auth.Account });
     }
 
-    [HttpPost("RenewRefreshToken")]
+    [HttpPost("internal/auth/RenewRefreshToken")]
     public IActionResult RenewRefreshToken([FromBody] RenewToken request)
     {
         var auth = authService.RenewUserRefreshToken(request.Account ?? "");

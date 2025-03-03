@@ -5,14 +5,9 @@ namespace dotnet6_webapi.Controller.privates;
 
 [Route("api/privates/Data")]
 [ApiController]
-[Authorize]
 public class DataController : ControllerBase
 {
-    private readonly ILogger<DataController> _logger;
-    public DataController(ILogger<DataController> logger)
-    {
-        _logger = logger;
-    }
+    public DataController() { }
 
     [HttpGet("")]
     public IActionResult GetData()
