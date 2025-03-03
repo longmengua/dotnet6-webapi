@@ -12,9 +12,10 @@ builder.Configuration
     .AddEnvironmentVariables()
     .AddCommandLine(args);
 
-// 添加服務到容器
+// 添加 controllers 服務
 builder.Services.AddControllers();
 
+// 自動掃描 service, repository 並註冊
 builder.Services.Scan(scan => scan
     .FromAssemblyOf<Program>() // 從當前專案的 `Program` 類別所在的 Assembly 掃描
     .AddClasses(classes => classes.InNamespaces("dotnet6_webapi.Service", "dotnet6_webapi.Repository")) // 針對指定命名空間掃描
