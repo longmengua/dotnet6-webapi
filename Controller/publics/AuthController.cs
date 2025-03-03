@@ -35,8 +35,16 @@ public class AuthController : ControllerBase
     [HttpPost("Register")]
     public IActionResult Register([FromBody] Register request)
     {
-        var auth = authService.RegisterUser(request.Account ?? "", request.Password ?? "");
-        return Ok(new { auth.Account });
+        var (auth, jwtToken, refreshToken) = authService.RegisterUser(
+            request.Account ?? "",
+            request.Password ?? "",
+            request.FirstName ?? "",
+            request.MiddleName,
+            request.LastName,
+            request.Email,
+            request.Phone
+        );
+        return Ok(new { auth.Account, jwtToken, refreshToken });
     }
 
     [HttpPost("UpdatePassword")]

@@ -1,4 +1,5 @@
 using dotnet6_webapi.Contexts;
+using dotnet6_webapi.Exceptions;
 using dotnet6_webapi.Models;
 using dotnet6_webapi.Utils;
 
@@ -13,12 +14,25 @@ public class UserRepo
         _context = context;
     }
 
-    public User Register(string account, string password)
+    public User Register(string account, string password, string firstName, string? middleName, string? lastName, string? email, string? phone)
     {
+        // Check if the account already exists
+        if (_context.Users?.Any(u => u.Account == account) == true)
+        {
+            throw new CustomException("Account already exists");
+        }
+
         var user = new User
         {
             Account = account,
-            Password = password // You should hash the password before storing it
+            Password = password, // You should hash the password before storing it
+            FirstName = firstName,
+            MiddleName = middleName,
+            LastName = lastName,
+            Email = email,
+            Phone = phone,
+            CreatedAt = DateTimeOffset.UtcNow,
+            UpdatedAt = DateTimeOffset.UtcNow
         };
         _context.Users?.Add(user);
         _context.SaveChanges();
@@ -81,5 +95,27 @@ public class UserRepo
         }
 
         return user;
+    }
+
+    public void SaveRefreshToken(int userId, string refreshToken)
+    {
+        var user = _context.Users?.FirstOrDefault(u => u.Id == userId);
+        if (user != null)
+        {
+            var newRefreshToken = new RefreshToken
+            {
+                Token = refreshToken,
+                IsUsed = false,
+                IsRevoked = false
+            };
+
+            user.UserRefreshTokens?.Add(new UserRefreshToken
+            {
+                UserId = user.Id,
+                RefreshToken = newRefreshToken
+            });
+
+            _context.SaveChanges();
+        }
     }
 }
