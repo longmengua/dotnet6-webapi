@@ -31,6 +31,7 @@
 
     <!-- PostgreSQL EF Core Provider -->
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="6.0.22" />
+    <PackageReference Include="Scrutor" Version="6.0.1" />
     
     <!-- Swagger/OpenAPI for API Documentation -->
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />

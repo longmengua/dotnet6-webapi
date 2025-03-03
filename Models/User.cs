@@ -26,9 +26,9 @@ public class User
     [MaxLength(100)]
     public string? Phone { get; set; }
 
-    public DateTimeOffset UpdatedAt { get; set; } = DateTimeOffset.Now;
+    public DateTimeOffset UpdatedAt { get; set; } = DateTimeOffset.UtcNow.UtcDateTime;
 
-    public DateTimeOffset CreatedAt { get; set; } = DateTimeOffset.Now;
+    public DateTimeOffset CreatedAt { get; set; } = DateTimeOffset.UtcNow.UtcDateTime;
 
     // 可選的導覽屬性（不影響侵入性）
     public ICollection<UserRefreshToken>? UserRefreshTokens { get; set; }

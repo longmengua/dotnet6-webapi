@@ -2,7 +2,8 @@ using dotnet6_webapi.Contexts;
 using dotnet6_webapi.Models;
 using dotnet6_webapi.Utils;
 
-namespace dotnet6_webapi.Repositroy;
+namespace dotnet6_webapi.Repository;
+
 public class UserRepo
 {
     private readonly AppDbContext _context;

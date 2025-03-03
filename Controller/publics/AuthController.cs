@@ -20,10 +20,8 @@ public class AuthController : ControllerBase
     [HttpPost("Login")]
     public IActionResult Login([FromBody] Login request)
     {
-        Log.Information("Received request: {account}, {password}", request.Account, request.Password);
-        // 這邊應該連接 SSO 進行用戶驗證
         var auth = authService.AuthenticateUser(request.Account ?? "", request.Password ?? "");
-        Log.Information("Received AuthenticateUser: {auth}", auth.Account);
+        // Log.Information("Received AuthenticateUser: {auth}", auth.Account);
         if (auth != null)
         {
             var token = AuthHelper.GenerateToken(request.Account ?? "", 1);
@@ -32,5 +30,26 @@ public class AuthController : ControllerBase
         }
 
         return Unauthorized("Invalid credentials");
+    }
+
+    [HttpPost("Register")]
+    public IActionResult Register([FromBody] Register request)
+    {
+        var auth = authService.RegisterUser(request.Account ?? "", request.Password ?? "");
+        return Ok(new { auth.Account });
+    }
+
+    [HttpPost("UpdatePassword")]
+    public IActionResult UpdatePassword([FromBody] UpdatePassword request)
+    {
+        var auth = authService.UpdateUserPassword(request.Account ?? "", request.NewPassword ?? "");
+        return Ok(new { auth.Account });
+    }
+
+    [HttpPost("RenewRefreshToken")]
+    public IActionResult RenewRefreshToken([FromBody] RenewToken request)
+    {
+        var auth = authService.RenewUserRefreshToken(request.Account ?? "");
+        return Ok(new { auth.Account });
     }
 }

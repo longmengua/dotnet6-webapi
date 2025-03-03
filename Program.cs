@@ -14,9 +14,13 @@ builder.Configuration
 
 // 添加服務到容器
 builder.Services.AddControllers();
-// 更多關於配置 Swagger/OpenAPI 的資訊，請參見 https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+
+builder.Services.Scan(scan => scan
+    .FromAssemblyOf<Program>() // 從當前專案的 `Program` 類別所在的 Assembly 掃描
+    .AddClasses(classes => classes.InNamespaces("dotnet6_webapi.Service", "dotnet6_webapi.Repository")) // 針對指定命名空間掃描
+    .AsSelf() // 讓 Scrutor 直接註冊類別本身
+    .AsImplementedInterfaces() // 也同時以介面形式註冊，適用於依賴介面的類別
+    .WithScopedLifetime()); // 設定 `Scoped` 生命週期
 
 // 設定 CORS，允許所有來源的請求
 builder.Services.AddCors(options =>
@@ -56,6 +60,8 @@ builder.Host.UseSerilog((context, configuration) =>
 // 開發環境配置
 if (builder.Environment.IsDevelopment())
 {
+    // 更多關於配置 Swagger/OpenAPI 的資訊，請參見 https://aka.ms/aspnetcore/swashbuckle
+    builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen(c =>
     {
         SwaggerHelper.Init(c); // 啟用 JWT token 功能

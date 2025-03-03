@@ -18,7 +18,7 @@ public class RefreshToken
     /// <summary>
     /// Token 建立時間
     /// </summary>
-    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+    public DateTime CreatedAt { get; set; } = DateTimeOffset.UtcNow.UtcDateTime;
 
     /// <summary>
     /// 是否已使用過
