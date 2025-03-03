@@ -32,11 +32,11 @@ namespace dotnet6_webapi.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Account = table.Column<string>(type: "character varying(10)", maxLength: 10, nullable: false),
-                    Password = table.Column<string>(type: "character varying(10)", maxLength: 10, nullable: false),
-                    FirstName = table.Column<string>(type: "character varying(10)", maxLength: 10, nullable: true),
-                    MiddleName = table.Column<string>(type: "character varying(10)", maxLength: 10, nullable: true),
-                    LastName = table.Column<string>(type: "character varying(10)", maxLength: 10, nullable: true),
+                    Account = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false),
+                    Password = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false),
+                    FirstName = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: true),
+                    MiddleName = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: true),
+                    LastName = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: true),
                     Email = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
                     Phone = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
                     UpdatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),

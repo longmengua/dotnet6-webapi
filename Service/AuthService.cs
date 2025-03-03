@@ -30,7 +30,7 @@ public class AuthService
         return toReturn;
     }
 
-    public (Auth, string, string) RegisterUser(string account, string password, string firstName, string? middleName, string? lastName, string? email, string? phone)
+    public (Auth, string, string) RegisterUser(string account, string password, string firstName, string middleName, string lastName, string email, string phone)
     {
         var user = userRepo.Register(account, password, firstName, middleName, lastName, email, phone);
         var auth = new Auth

@@ -7,17 +7,17 @@ public class User
     [Key]
     public int Id { get; set; }
 
-    [MaxLength(10)]
+    [MaxLength(20)]
     public string Account { get; set; }
-    [MaxLength(10)]
+    [MaxLength(20)]
     public string Password { get; set; }
-    [MaxLength(10)]
+    [MaxLength(20)]
     public string? FirstName { get; set; }
 
-    [MaxLength(10)]
+    [MaxLength(20)]
     public string? MiddleName { get; set; }
 
-    [MaxLength(10)]
+    [MaxLength(20)]
     public string? LastName { get; set; }
 
     [MaxLength(100)]

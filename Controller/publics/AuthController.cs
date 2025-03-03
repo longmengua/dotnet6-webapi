@@ -35,14 +35,19 @@ public class AuthController : ControllerBase
     [HttpPost("Register")]
     public IActionResult Register([FromBody] Register request)
     {
+        if (string.IsNullOrEmpty(request.Account) || string.IsNullOrEmpty(request.Password))
+        {
+            return BadRequest("Account and Password are required");
+        }
+
         var (auth, jwtToken, refreshToken) = authService.RegisterUser(
-            request.Account ?? "",
-            request.Password ?? "",
+            request.Account,
+            request.Password,
             request.FirstName ?? "",
-            request.MiddleName,
-            request.LastName,
-            request.Email,
-            request.Phone
+            request.MiddleName ?? "",
+            request.LastName ?? "",
+            request.Email ?? "",
+            request.Phone ?? ""
         );
         return Ok(new { auth.Account, jwtToken, refreshToken });
     }

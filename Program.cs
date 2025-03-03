@@ -46,13 +46,15 @@ builder.Host.UseSerilog((context, configuration) =>
     LoggingHelper.Init(context, configuration, builder.Configuration); // 調用封裝方法來設定日誌
 });
 
-// 配置 JWT token 機制
-// var jwtSettings = builder.Configuration.GetSection("Jwt");
-// AuthHelper.SetConfiguration(
-//   jwtSettings.GetValue<string>("SecretKey"),
-//   jwtSettings.GetValue<string>("Issuer"),
-//   jwtSettings.GetValue<string>("Audience")
-// );
+// 配置 AuthHelper 的 JWT token 設置
+var jwtSettings = builder.Configuration.GetSection("Jwt");
+AuthHelper.SetConfiguration(
+  jwtSettings.GetValue<string>("SecretKey"),
+  jwtSettings.GetValue<string>("Issuer"),
+  jwtSettings.GetValue<string>("Audience")
+);
+
+// 配置 .Net Auth套件的機制，目前不採用，用middleware處理掉。
 // builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
 // {
 //     AuthHelper.Init(options);
@@ -68,9 +70,6 @@ if (builder.Environment.IsDevelopment())
         SwaggerHelper.Init(c); // 啟用 JWT token 功能
     });
 }
-
-
-
 
 var app = builder.Build();
 

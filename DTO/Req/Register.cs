@@ -4,10 +4,10 @@ namespace dotnet6_webapi.DTO.Req
     {
         public string? Account { get; set; }
         public string? Password { get; set; }
-        public string? FirstName { get; set; }
-        public string? MiddleName { get; set; }
-        public string? LastName { get; set; }
-        public string? Email { get; set; }
-        public string? Phone { get; set; }
+        public string? FirstName { get; set; } = String.Empty;
+        public string? MiddleName { get; set; } = String.Empty;
+        public string? LastName { get; set; } = String.Empty;
+        public string? Email { get; set; } = String.Empty;
+        public string? Phone { get; set; } = String.Empty;
     }
 }

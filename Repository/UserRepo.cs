@@ -14,7 +14,7 @@ public class UserRepo
         _context = context;
     }
 
-    public User Register(string account, string password, string firstName, string? middleName, string? lastName, string? email, string? phone)
+    public User Register(string account, string password, string firstName, string middleName, string lastName, string email, string phone)
     {
         // Check if the account already exists
         if (_context.Users?.Any(u => u.Account == account) == true)
