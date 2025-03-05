@@ -81,13 +81,8 @@
 
 - phase 7
     - 實作登入、JWT 驗證
-        - 先用內建的
-```
-// 啟用授權
-app.UseAuthentication(); // 先認證用戶身份
-app.UseAuthorization(); // 然後根據身份授權
-```
-        - 再改用 filter 跟 DB 實作
+        - 用 filter(middleware) 跟 DB 實作
+        - 概念：用jwt進行快速驗證，refresh token 進行控管，當大流量時候，伺服器本身即可進行驗證，不需要跟資料庫交互，每個token存活時間只有15分鐘，可在token內加入fingerprinter，避免被其他裝置盜用。
 
 - phase 8
     - perfoamnce test with Locust (壓測)
